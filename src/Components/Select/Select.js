@@ -1,13 +1,13 @@
-import React, { useState, useRef, useEffect } from "react";
-import "./Style.scss";
+import React, { useState, useEffect } from 'react';
+import { TransitionGroup } from 'react-transition-group';
+import './Style.scss';
 
 const Select = (props) => {
   const [currentValue, setCurrentValue] = useState({
-    title: "",
-    value: "",
+    title: '',
+    value: '',
   });
   const [isOpen, setIsOpen] = useState(false);
-  const inputRef = useRef(null);
   const selectHandler = (e) => {
     setCurrentValue({
       title: e.target.innerText,
@@ -18,7 +18,9 @@ const Select = (props) => {
 
   useEffect(
     (prev) => {
-      props.getValue(currentValue);
+      if (props.onSelected) {
+        props.onSelected(currentValue);
+      }
     },
     [currentValue]
   );
@@ -47,13 +49,12 @@ const Select = (props) => {
   };
 
   return (
-    <div className={`Select ${isOpen ? "Select--open" : ""}`}>
+    <div className={`Select ${isOpen ? 'Select--open' : ''}`}>
       <div className="Select__head" onClick={(e) => toggleList()}>
         <span className="Select__value">
           <input
             className="Select__value-input"
             readOnly
-            ref={inputRef}
             autoComplete="off"
             value={currentValue.value}
           />
