@@ -15,12 +15,18 @@
     right: 5px;
     color: rgba(0, 0, 0, 0.2);
 
+    @extend .material-icons;
+
     &--warning {
       color: $warning-color;
     }
 
     &--error {
       color: $danger-color;
+    }
+
+    &--verified {
+      color: $success-color;
     }
   }
 
@@ -67,7 +73,9 @@
     transform: translate(5px);
   }
 
-  &--success {
+  &--verified {
+    color: rgb(23, 201, 100);
+
     input:focus {
       border: 1px solid $success-color;
 
