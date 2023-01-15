@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import classNames from 'classnames';
 import { TransitionGroup } from 'react-transition-group';
-import './Style.scss';
+import style from './select.module.scss';
 
 const Select = (props) => {
   const [currentValue, setCurrentValue] = useState({
@@ -38,10 +39,10 @@ const Select = (props) => {
   const SelectList = () => {
     if (isOpen) {
       return (
-        <ul className="Select__list">
+        <ul className={style.list}>
           {props.items.map((item, idx) => (
             <li
-              className="Select__list__item"
+              className={style.list__item}
               key={idx}
               data-value={item.value}
               onClick={(e) => selectHandler(e)}
@@ -67,22 +68,26 @@ const Select = (props) => {
   };
 
   return (
-    <div className={`Select ${isOpen ? 'Select--open' : ''}`}>
+    <div
+      className={classNames(style.element, {
+        [style.open]: isOpen,
+      })}
+    >
       <div
-        className="Select__head"
+        className={style.head}
         onClick={(e) => toggleList()}
         onKeyDown={onKeyDown}
         tabIndex="1"
       >
-        <span className="Select__value">
+        <span className={style.value}>
           <input
-            className="Select__value-input"
+            className={style.value_input}
             readOnly
             autoComplete="off"
             value={currentValue.value}
           />
         </span>
-        <span className="Select__selected-value">{currentValue.title}</span>
+        <span className={style.selectedValue}>{currentValue.title}</span>
       </div>
       {SelectList()}
     </div>
