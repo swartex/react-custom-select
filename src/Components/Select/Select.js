@@ -25,6 +25,16 @@ const Select = (props) => {
     [currentValue]
   );
 
+  const onSelectItem = (e) => {
+    if (e.keyCode === 13) {
+      setCurrentValue({
+        title: e.target.innerText,
+        value: e.target.dataset.value,
+      });
+      setIsOpen(false);
+    }
+  };
+
   const SelectList = () => {
     if (isOpen) {
       return (
@@ -35,6 +45,8 @@ const Select = (props) => {
               key={idx}
               data-value={item.value}
               onClick={(e) => selectHandler(e)}
+              tabIndex="1"
+              onKeyDown={onSelectItem}
             >
               {item.title}
             </li>
@@ -48,9 +60,20 @@ const Select = (props) => {
     setIsOpen(!isOpen);
   };
 
+  const onKeyDown = (e) => {
+    if (e.keyCode === 13) {
+      setIsOpen(!isOpen);
+    }
+  };
+
   return (
     <div className={`Select ${isOpen ? 'Select--open' : ''}`}>
-      <div className="Select__head" onClick={(e) => toggleList()}>
+      <div
+        className="Select__head"
+        onClick={(e) => toggleList()}
+        onKeyDown={onKeyDown}
+        tabIndex="1"
+      >
         <span className="Select__value">
           <input
             className="Select__value-input"
