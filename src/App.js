@@ -18,7 +18,11 @@ function App() {
 
   return (
     <div className="App">
-      <Select items={elements} onSelected={onSelect} />
+      <Select
+        label={'Label of select'}
+        items={elements}
+        onSelected={onSelect}
+      />
       <hr />
       <Input placeholder="Placeholder" icon="warning" />
     </div>

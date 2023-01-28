@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import classNames from 'classnames';
-import { TransitionGroup } from 'react-transition-group';
+// import { TransitionGroup } from 'react-transition-group';
 import style from './select.module.scss';
 
-const Select = (props) => {
+const Select = ({ items, onSelected, label }) => {
   const [currentValue, setCurrentValue] = useState({
     title: '',
     value: '',
@@ -19,8 +19,8 @@ const Select = (props) => {
 
   useEffect(
     (prev) => {
-      if (props.onSelected) {
-        props.onSelected(currentValue);
+      if (onSelected) {
+        onSelected(currentValue);
       }
     },
     [currentValue]
@@ -40,7 +40,7 @@ const Select = (props) => {
     if (isOpen) {
       return (
         <ul className={style.list}>
-          {props.items.map((item, idx) => (
+          {items.map((item, idx) => (
             <li
               className={style.list__item}
               key={idx}
@@ -68,7 +68,11 @@ const Select = (props) => {
   };
 
   return (
-    <div
+    <div className="Select">
+      {label && (
+        <span className={style.label}>{label}</span>  
+      )}
+      <div
       className={classNames(style.element, {
         [style.open]: isOpen,
       })}
@@ -90,6 +94,7 @@ const Select = (props) => {
         <span className={style.selectedValue}>{currentValue.title}</span>
       </div>
       {SelectList()}
+    </div>
     </div>
   );
 };
